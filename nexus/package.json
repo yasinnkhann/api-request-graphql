@@ -1,0 +1,17 @@
+{
+	"name": "nexus-api-req",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "nodemon index.js"
+	},
+	"dependencies": {
+		"apollo-server": "^3.11.1",
+		"graphql": "^16.6.0",
+		"nexus": "^1.3.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
+}
