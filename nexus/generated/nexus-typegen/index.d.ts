@@ -42,7 +42,6 @@ export interface NexusGenObjects {
     gender?: string | null; // String
     hair_color?: string | null; // String
     height?: string | null; // String
-    homeworld?: NexusGenRootTypes['Planet'] | null; // Planet
     mass?: string | null; // String
     name?: string | null; // String
     skin_color?: string | null; // String
@@ -93,6 +92,7 @@ export interface NexusGenFieldTypes {
     rotation_period: string | null; // String
   }
   Query: { // field return type
+    getPerson: NexusGenRootTypes['Person'] | null; // Person
     hello: string | null; // String
   }
 }
@@ -125,12 +125,16 @@ export interface NexusGenFieldTypeNames {
     rotation_period: 'String'
   }
   Query: { // field return type name
+    getPerson: 'Person'
     hello: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
   Query: {
+    getPerson: { // args
+      id: number; // Int!
+    }
     hello: { // args
       name?: string | null; // String
     }

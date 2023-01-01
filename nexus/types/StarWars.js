@@ -1,11 +1,4 @@
-const {
-	extendType,
-	objectType,
-	arg,
-	intArg,
-	stringArg,
-	nonNull,
-} = require('nexus');
+const { extendType, objectType, stringArg, intArg, nonNull } = require('nexus');
 
 const resolveFilms = parent => {
 	return Promise.all(
@@ -52,7 +45,13 @@ exports.Person = objectType({
 		t.string('eye_color');
 		t.string('birth_year');
 		t.string('gender');
-		t.field('homeworld', { type: 'Planet' });
+		t.field('homeworld', {
+			type: 'Planet',
+			async resolve(parent) {
+				const response = await fetch(parent.homeworld);
+				return await response.json();
+			},
+		});
 		t.list.field('films', {
 			type: 'Film',
 			resolve: parent => resolveFilms(parent),
@@ -60,8 +59,8 @@ exports.Person = objectType({
 	},
 });
 
-exports.Query = objectType({
-	name: 'Query',
+exports.Hello = extendType({
+	type: 'Query',
 	definition(t) {
 		t.field('hello', {
 			type: 'String',
@@ -69,8 +68,45 @@ exports.Query = objectType({
 				name: stringArg(),
 			},
 			resolve(_parent, { name }) {
-				return `hello ${name ?? 'world'}`;
+				return `Hello ${name || 'World'}`;
 			},
 		});
 	},
 });
+
+exports.GetPerson = extendType({
+	type: 'Query',
+	definition(t) {
+		t.field('getPerson', {
+			type: 'Person',
+			args: {
+				id: nonNull(intArg()),
+			},
+			async resolve(_parent, { id }) {
+				const response = await fetch(`https://swapi.dev/api/people/${id}/`);
+				return await response.json();
+			},
+		});
+	},
+});
+
+/*
+API SHAPE for PERSON: 
+{
+	"name": "Luke Skywalker",
+	"height": "172",
+	"mass": "77",
+	"hair_color": "blond",
+	"skin_color": "fair",
+	"eye_color": "blue",
+	"birth_year": "19BBY",
+	"gender": "male",
+	"homeworld": "https://swapi.dev/api/planets/1/",
+	"films": [
+		"https://swapi.dev/api/films/1/",
+		"https://swapi.dev/api/films/2/",
+		"https://swapi.dev/api/films/3/",
+		"https://swapi.dev/api/films/6/"
+	],
+}
+*/

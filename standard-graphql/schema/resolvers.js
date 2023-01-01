@@ -19,8 +19,8 @@ const resolvers = {
 		films: resolveFilms,
 	},
 	Query: {
-		hello: (_, { name }) => `Hello ${name || 'World'}`,
-		getPerson: async (_, { id }) => {
+		hello: (_parent, { name }) => `Hello ${name || 'World'}`,
+		getPerson: async (_parent, { id }) => {
 			const response = await fetch(`https://swapi.dev/api/people/${id}/`);
 			return await response.json();
 		},

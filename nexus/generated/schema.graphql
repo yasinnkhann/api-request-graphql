@@ -32,5 +32,6 @@ type Planet {
 }
 
 type Query {
+  getPerson(id: Int!): Person
   hello(name: String): String
 }
