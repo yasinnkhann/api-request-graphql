@@ -17,8 +17,6 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  FeedType: "HOT" | "NEW" | "TOP"
-  VoteType: "CANCEL" | "DOWN" | "UP"
 }
 
 export interface NexusGenScalars {
@@ -30,43 +28,31 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Comment: { // root type
-    content?: string | null; // String
-    createdAt?: number | null; // Float
-    id?: number | null; // Int
-    postedBy?: NexusGenRootTypes['User'] | null; // User
-    repoName?: string | null; // String
+  Film: { // root type
+    director?: string | null; // String
+    episode_id?: number | null; // Int
+    opening_crawl?: string | null; // String
+    producer?: string | null; // String
+    release_date?: string | null; // String
+    title?: string | null; // String
   }
-  Entry: { // root type
-    commentCount?: number | null; // Int
-    comments?: Array<NexusGenRootTypes['Comment'] | null> | null; // [Comment]
-    createdAt?: number | null; // Float
-    hotScore?: number | null; // Float
-    id?: number | null; // Int
-    postedBy?: NexusGenRootTypes['User'] | null; // User
-    repository?: NexusGenRootTypes['Repository'] | null; // Repository
-    score?: number | null; // Int
-    vote?: NexusGenRootTypes['Vote'] | null; // Vote
-  }
-  Mutation: {};
-  Query: {};
-  Repository: { // root type
-    description?: string | null; // String
-    full_name?: string | null; // String
-    html_url?: string | null; // String
+  Person: { // root type
+    birth_year?: string | null; // String
+    eye_color?: string | null; // String
+    gender?: string | null; // String
+    hair_color?: string | null; // String
+    height?: string | null; // String
+    homeworld?: NexusGenRootTypes['Planet'] | null; // Planet
+    mass?: string | null; // String
     name?: string | null; // String
-    open_issues_count?: number | null; // Int
-    owner?: NexusGenRootTypes['User'] | null; // User
-    stargazers_count?: number | null; // Int
+    skin_color?: string | null; // String
   }
-  User: { // root type
-    avatar_url?: string | null; // String
-    html_url?: string | null; // String
-    login?: string | null; // String
+  Planet: { // root type
+    name?: string | null; // String
+    orbital_period?: string | null; // String
+    rotation_period?: string | null; // String
   }
-  Vote: { // root type
-    vote_value?: number | null; // Int
-  }
+  Query: {};
 }
 
 export interface NexusGenInterfaces {
@@ -77,132 +63,76 @@ export interface NexusGenUnions {
 
 export type NexusGenRootTypes = NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Comment: { // field return type
-    content: string | null; // String
-    createdAt: number | null; // Float
-    id: number | null; // Int
-    postedBy: NexusGenRootTypes['User'] | null; // User
-    repoName: string | null; // String
+  Film: { // field return type
+    director: string | null; // String
+    episode_id: number | null; // Int
+    opening_crawl: string | null; // String
+    producer: string | null; // String
+    release_date: string | null; // String
+    title: string | null; // String
   }
-  Entry: { // field return type
-    commentCount: number | null; // Int
-    comments: Array<NexusGenRootTypes['Comment'] | null> | null; // [Comment]
-    createdAt: number | null; // Float
-    hotScore: number | null; // Float
-    id: number | null; // Int
-    postedBy: NexusGenRootTypes['User'] | null; // User
-    repository: NexusGenRootTypes['Repository'] | null; // Repository
-    score: number | null; // Int
-    vote: NexusGenRootTypes['Vote'] | null; // Vote
+  Person: { // field return type
+    birth_year: string | null; // String
+    eye_color: string | null; // String
+    films: Array<NexusGenRootTypes['Film'] | null> | null; // [Film]
+    gender: string | null; // String
+    hair_color: string | null; // String
+    height: string | null; // String
+    homeworld: NexusGenRootTypes['Planet'] | null; // Planet
+    mass: string | null; // String
+    name: string | null; // String
+    skin_color: string | null; // String
   }
-  Mutation: { // field return type
-    submitComment: NexusGenRootTypes['Comment'] | null; // Comment
-    submitRepository: NexusGenRootTypes['Entry'] | null; // Entry
-    vote: NexusGenRootTypes['Entry'] | null; // Entry
+  Planet: { // field return type
+    films: Array<NexusGenRootTypes['Film'] | null> | null; // [Film]
+    name: string | null; // String
+    orbital_period: string | null; // String
+    rotation_period: string | null; // String
   }
   Query: { // field return type
-    currentUser: NexusGenRootTypes['User'] | null; // User
-    entry: NexusGenRootTypes['Entry'] | null; // Entry
-    feed: Array<NexusGenRootTypes['Entry'] | null> | null; // [Entry]
-  }
-  Repository: { // field return type
-    description: string | null; // String
-    full_name: string | null; // String
-    html_url: string | null; // String
-    name: string | null; // String
-    open_issues_count: number | null; // Int
-    owner: NexusGenRootTypes['User'] | null; // User
-    stargazers_count: number | null; // Int
-  }
-  User: { // field return type
-    avatar_url: string | null; // String
-    html_url: string | null; // String
-    login: string | null; // String
-  }
-  Vote: { // field return type
-    vote_value: number | null; // Int
+    hello: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Comment: { // field return type name
-    content: 'String'
-    createdAt: 'Float'
-    id: 'Int'
-    postedBy: 'User'
-    repoName: 'String'
+  Film: { // field return type name
+    director: 'String'
+    episode_id: 'Int'
+    opening_crawl: 'String'
+    producer: 'String'
+    release_date: 'String'
+    title: 'String'
   }
-  Entry: { // field return type name
-    commentCount: 'Int'
-    comments: 'Comment'
-    createdAt: 'Float'
-    hotScore: 'Float'
-    id: 'Int'
-    postedBy: 'User'
-    repository: 'Repository'
-    score: 'Int'
-    vote: 'Vote'
+  Person: { // field return type name
+    birth_year: 'String'
+    eye_color: 'String'
+    films: 'Film'
+    gender: 'String'
+    hair_color: 'String'
+    height: 'String'
+    homeworld: 'Planet'
+    mass: 'String'
+    name: 'String'
+    skin_color: 'String'
   }
-  Mutation: { // field return type name
-    submitComment: 'Comment'
-    submitRepository: 'Entry'
-    vote: 'Entry'
+  Planet: { // field return type name
+    films: 'Film'
+    name: 'String'
+    orbital_period: 'String'
+    rotation_period: 'String'
   }
   Query: { // field return type name
-    currentUser: 'User'
-    entry: 'Entry'
-    feed: 'Entry'
-  }
-  Repository: { // field return type name
-    description: 'String'
-    full_name: 'String'
-    html_url: 'String'
-    name: 'String'
-    open_issues_count: 'Int'
-    owner: 'User'
-    stargazers_count: 'Int'
-  }
-  User: { // field return type name
-    avatar_url: 'String'
-    html_url: 'String'
-    login: 'String'
-  }
-  Vote: { // field return type name
-    vote_value: 'Int'
+    hello: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
-  Entry: {
-    comments: { // args
-      limit?: number | null; // Int
-      offset?: number | null; // Int
-    }
-  }
-  Mutation: {
-    submitComment: { // args
-      commentContent: string; // String!
-      repoFullName: string; // String!
-    }
-    submitRepository: { // args
-      repoFullName: string; // String!
-    }
-    vote: { // args
-      repoFullName: string; // String!
-      type: NexusGenEnums['VoteType']; // VoteType!
-    }
-  }
   Query: {
-    entry: { // args
-      repoFullName: string; // String!
-    }
-    feed: { // args
-      limit?: number | null; // Int
-      offset?: number | null; // Int
-      type: NexusGenEnums['FeedType']; // FeedType!
+    hello: { // args
+      name?: string | null; // String
     }
   }
 }
@@ -217,7 +147,7 @@ export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = keyof NexusGenEnums;
+export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
