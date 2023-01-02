@@ -8,6 +8,10 @@ const server = new ApolloServer({
 	context: ({ req }) => ({ req }),
 });
 
-server.listen().then(({ url }) => {
-	console.log(`YOUR API IS RUNNING AT: ${url} :)`);
-});
+const port = process.env.PORT || 4000;
+
+server.listen({ port }, () =>
+	console.log(
+		`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+	)
+);
